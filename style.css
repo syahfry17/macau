@@ -127,3 +127,17 @@ footer .garis{
   border-radius:10px;
   margin:8px auto 8px auto;
 }
+
+/* FIX AGAR TOP GAK NIMPA TABEL */
+body{
+  padding-bottom:90px !important;
+}
+table{
+  margin-bottom:20px;
+}
+#btnTop{
+  bottom:20px !important;
+}
+footer{
+  width:100% !important;
+}

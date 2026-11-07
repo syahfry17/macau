@@ -154,3 +154,21 @@ footer, .footer {
 body {
   padding-bottom: 0 !important;
 }
+
+/* RAPETIN BAWAH FOOTER - JANGAN ADA TANAH KOSONG */
+html, body {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: auto !important;
+}
+
+footer, .footer, .copyright {
+  margin-bottom: 0 !important;
+  padding-bottom: 12px !important;
+  padding-top: 10px !important;
+}
+
+/* Biar tombol TOP gak bikin ruang kosong */
+#topBtn, .top-btn, .btn-top, a[href="#top"] {
+  bottom: 12px !important;
+}

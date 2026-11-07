@@ -12,3 +12,13 @@ td:focus{background:#e0f2f1;outline:2px solid #009879}
 #btnTop .panah{display:block;font-size:18px;font-weight:bold;margin-top:8px;line-height:0.8}
 #btnTop .teks{display:block;font-size:14px;font-weight:bold;letter-spacing:1px}
 #btnTop:active{transform:scale(0.95)}
+
+/* PEMBATAS TAHUN */
+tr.tahun td{
+  background:#111;
+  color:#fff;
+  font-weight:800;
+  text-align:center;
+  letter-spacing:2px;
+  padding:8px 0;
+}

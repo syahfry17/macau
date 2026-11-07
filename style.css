@@ -141,3 +141,16 @@ table{
 footer{
   width:100% !important;
 }
+
+/* RAPETIN JARAK BAWAH */
+table {
+  margin-bottom: 8px !important;
+}
+footer, .footer {
+  margin-top: 5px !important;
+  padding-top: 8px !important;
+  padding-bottom: 10px !important;
+}
+body {
+  padding-bottom: 0 !important;
+}

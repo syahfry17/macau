@@ -41,10 +41,11 @@ th {
 }
 
 td {
-  padding: 15px 2px;
+  padding: 10px 2px;
   text-align: center;
   color: #000;
   border-bottom: 1px solid #ddd;
+  font-weight: 700;
 }
 
 tr:nth-child(even) td {

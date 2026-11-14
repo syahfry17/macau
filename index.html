@@ -4,11 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data Macau by SAPROEL</title>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <h2>DATA MACAU</h2>
 <p class="info">2025 - 2026</p>
+<div class="pencarian-wrap">
+  <div class="pencarian-box">
+    <input id="searchInput" type="search" inputmode="search" autocomplete="off" placeholder="Cari angka Result atau tanggal (contoh: 75, 31 Okt)" aria-label="Cari angka result atau tanggal">
+    <button id="btnClearSearch" type="button" aria-label="Hapus pencarian" hidden>×</button>
+  </div>
+  <div id="infoHasilCari" class="hasil-cari" role="status" aria-live="polite" hidden></div>
+</div>
 <div id="statusData" role="status" style="text-align:center;font-size:13px;color:#555;padding:6px 4px"></div>
 <table id="tabelku">
 <thead><tr><th>Tanggal</th><th>00:00</th><th>13:00</th><th>16:00</th><th>19:00</th><th>22:00</th><th>23:00</th></tr></thead>
@@ -32,6 +39,6 @@
   <div class="copy">© 2026 SAPROEL • All Rights Reserved</div>
 </footer>
   
-<script src="script.js?v=1" defer></script>
+<script src="script.js?v=2" defer></script>
 </body>
 </html>

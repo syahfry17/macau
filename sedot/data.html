@@ -13,20 +13,38 @@
 <h3>Isi Mentah Yang Dikasih Google:</h3>
 <pre id="mentah">Belum ada...</pre>
 <script>
-var API_URL = "https://script.google.com/macros/s/AKfycbzPXooZknLI43LEmDOWsna2jjrQbmFq7cGqP2BuUxysC0QWCc8cjB2pNmHshDbfGd_s/exec";
-function loadData(){
-  document.getElementById("status").innerText = "Lagi ngecek...";
-  fetch(API_URL)
-    .then(r => r.text())
-    .then(t => {
-      document.getElementById("status").innerText = "Dapet! Panjang: " + t.length + " karakter";
-      document.getElementById("mentah").innerText = t.substring(0, 2000);
-    })
-    .catch(e => {
-      document.getElementById("status").innerText = "Gagal total: " + e;
+const API_URL = "https://script.google.com/macros/s/AKfycbzPXooZknLI43LEmDOWsna2jjrQbmFq7cGqP2BuUxysC0QWCc8cjB2pNmHshDbfGd_s/exec";
+
+async function sedot() {
+  document.getElementById("status").innerText = "Lagi nyedot...";
+  try {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+
+    document.getElementById("status").innerText = "Berhasil! Total: " + json.total;
+    document.getElementById("raw").innerText = JSON.stringify(json, null, 2);
+
+    // Tampilin ke tabel
+    let html = "";
+    json.data.forEach(function(d){
+      html += `<tr>
+        <td>${d.pasaran}</td>
+        <td><b style="font-size:20px">${d.angka}</b></td>
+        <td>${d.tanggal}</td>
+      </tr>`;
     });
+    document.getElementById("tbody").innerHTML = html;
+
+  } catch(e) {
+    document.getElementById("status").innerText = "Gagal: " + e;
+  }
 }
-loadData();
 </script>
-</body>
-</html>
+
+<button onclick="sedot()">SEDOT SEKARANG</button>
+<p id="status">Belum disedot</p>
+<table border="1" width="100%">
+  <thead><tr><th>Pasaran</th><th>Angka</th><th>Tanggal</th></tr></thead>
+  <tbody id="tbody"></tbody>
+</table>
+<pre id="raw"></pre>

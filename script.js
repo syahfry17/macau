@@ -13,6 +13,9 @@ function filterTabel() {
   const q = searchInput.value.trim().toLocaleLowerCase('id');
   btnClearSearch.hidden = !q;
   infoHasilCari.hidden = !q;
+  // Biar pil hijau nya muncul / hilang cantik
+  infoHasilCari.classList.toggle('tampil', Boolean(q));
+  btnClearSearch.classList.toggle('tampil', Boolean(q));
   let jumlahBarisCocok = 0;
   for (const tr of tbody.querySelectorAll('tr')) {
     if (tr.classList.contains('tahun')) {
@@ -47,7 +50,12 @@ function filterTabel() {
     tr.style.display = !q || cocok ? '' : 'none';
     if (q && cocok) jumlahBarisCocok++;
   }
-  if (q) infoHasilCari.textContent = `Ditemukan ${jumlahBarisCocok} tanggal yang mengandung “${searchInput.value.trim()}”`;
+  if (q) {
+    const kata = searchInput.value.trim();
+    infoHasilCari.innerHTML = `Ditemukan <b>${jumlahBarisCocok}</b> tanggal yang mengandung “<b>${kata}</b>”`;
+  } else {
+    infoHasilCari.innerHTML = '';
+  }
 }
 searchInput.addEventListener('input', filterTabel);
 btnClearSearch.addEventListener('click', () => { searchInput.value = ''; filterTabel(); searchInput.focus(); });

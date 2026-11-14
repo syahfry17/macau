@@ -3,43 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test Sedot Data</title>
-<style>
-body{font-family:Arial;background:#111;color:#fff;padding:15px}
-table{width:100%;border-collapse:collapse;margin-top:15px;background:#222}
-th,td{border:1px solid #444;padding:8px;text-align:center;font-size:13px}
-th{background:#ffcc00;color:#000}
-pre{background:#000;color:#0f0;padding:10px;overflow:auto;font-size:11px;max-height:300px;white-space:pre-wrap}
-button{background:#ffcc00;border:0;padding:10px 20px;font-weight:bold;border-radius:8px}
-</style>
+<title>DEBUG API</title>
+<style>body{font-family:Arial;background:#111;color:#fff;padding:15px}pre{background:#000;color:#0f0;padding:10px;overflow:auto;font-size:11px;white-space:pre-wrap;word-break:break-all}button{background:#ffcc00;border:0;padding:10px 20px;font-weight:bold;border-radius:8px}</style>
 </head>
 <body>
-<h2>🔥 TEST SEDOT DATA (MENTAH)</h2>
-<p>Folder terpisah, web macau utama aman.</p>
-<button onclick="loadData()">SEDOT SEKARANG</button>
-<p id="status">Belum disedot...</p>
-<h3>Data Mentah (JSON):</h3>
-<pre id="mentah">Belum ada data...</pre>
-<h3>Data Jadi Tabel:</h3>
-<div id="tabel"></div>
+<h2>🔍 DEBUG API - LIAT ISI ASLINYA</h2>
+<button onclick="loadData()">CEK API SEKARANG</button>
+<p id="status">Belum dicek...</p>
+<h3>Isi Mentah Yang Dikasih Google:</h3>
+<pre id="mentah">Belum ada...</pre>
 <script>
 var API_URL = "https://script.google.com/macros/s/AKfycbzPXooZknLI43LEmDOWsna2jjrQbmFq7cGqP2BuUxysC0QWCc8cjB2pNmHshDbfGd_s/exec";
 function loadData(){
-  document.getElementById("status").innerText = "Lagi nyedot...";
+  document.getElementById("status").innerText = "Lagi ngecek...";
   fetch(API_URL)
-    .then(r => r.json())
-    .then(j => {
-      document.getElementById("status").innerText = "Berhasil! Total: " + j.total;
-      document.getElementById("mentah").innerText = JSON.stringify(j, null, 2);
-      var html = "<table><tr><th>Tanggal</th><th>00:00</th><th>13:00</th><th>16:00</th><th>19:00</th><th>22:00</th><th>23:00</th></tr>";
-      j.data.forEach(d => {
-        html += "<tr><td>"+d.tanggal+"</td><td>"+d.jam_00+"</td><td>"+d.jam_13+"</td><td>"+d.jam_16+"</td><td>"+d.jam_19+"</td><td>"+d.jam_22+"</td><td>"+d.jam_23+"</td></tr>";
-      });
-      html += "</table>";
-      document.getElementById("tabel").innerHTML = html;
+    .then(r => r.text())
+    .then(t => {
+      document.getElementById("status").innerText = "Dapet! Panjang: " + t.length + " karakter";
+      document.getElementById("mentah").innerText = t.substring(0, 2000);
     })
     .catch(e => {
-      document.getElementById("status").innerText = "Gagal: " + e;
+      document.getElementById("status").innerText = "Gagal total: " + e;
     });
 }
 loadData();

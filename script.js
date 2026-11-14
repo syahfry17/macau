@@ -5,6 +5,52 @@ const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTQRyD6E
 
 const tbody = document.querySelector('#tabelku tbody');
 const statusData = document.getElementById('statusData');
+const searchInput = document.getElementById('searchInput');
+const btnClearSearch = document.getElementById('btnClearSearch');
+const infoHasilCari = document.getElementById('infoHasilCari');
+
+function filterTabel() {
+  const q = searchInput.value.trim().toLocaleLowerCase('id');
+  btnClearSearch.hidden = !q;
+  infoHasilCari.hidden = !q;
+  let jumlahBarisCocok = 0;
+  for (const tr of tbody.querySelectorAll('tr')) {
+    if (tr.classList.contains('tahun')) {
+      tr.hidden = Boolean(q);
+      tr.style.display = q ? 'none' : '';
+      continue;
+    }
+    const cells = [...tr.querySelectorAll('td')];
+    if (cells.length !== 7) continue;
+    let cocok = false;
+    cells.forEach((td, index) => {
+      const value = td.textContent;
+      const lower = value.toLocaleLowerCase('id');
+      // Buat ulang teks agar highlight lama bersih tanpa mengubah data.
+      td.replaceChildren(document.createTextNode(value));
+      if (!q || !lower.includes(q)) return;
+      cocok = true;
+      if (index === 0) return; // tanggal ikut dicari, tapi tidak disorot
+      const fragment = document.createDocumentFragment();
+      let cursor = 0, pos;
+      while ((pos = lower.indexOf(q, cursor)) !== -1) {
+        fragment.appendChild(document.createTextNode(value.slice(cursor, pos)));
+        const mark = document.createElement('mark');
+        mark.className = 'highlight-angka';
+        mark.textContent = value.slice(pos, pos + q.length);
+        fragment.appendChild(mark);
+        cursor = pos + q.length;
+      }
+      fragment.appendChild(document.createTextNode(value.slice(cursor)));
+      td.replaceChildren(fragment);
+    });
+    tr.style.display = !q || cocok ? '' : 'none';
+    if (q && cocok) jumlahBarisCocok++;
+  }
+  if (q) infoHasilCari.textContent = `Ditemukan ${jumlahBarisCocok} tanggal yang mengandung “${searchInput.value.trim()}”`;
+}
+searchInput.addEventListener('input', filterTabel);
+btnClearSearch.addEventListener('click', () => { searchInput.value = ''; filterTabel(); searchInput.focus(); });
 
 // Parser CSV sederhana, mendukung koma, petik ganda, dan baris baru di dalam petik.
 function parseCSV(csv) {
@@ -52,6 +98,7 @@ function tampilkanData(rows) {
   }
   if (!jumlah) throw new Error('Tidak ada data pada Sheet1. Periksa susunan baris dan link CSV.');
   statusData.textContent = '';
+  filterTabel();
 }
 
 async function muatData() {

@@ -52,7 +52,7 @@ function filterTabel() {
   }
   if (q) {
     const kata = searchInput.value.trim();
-    infoHasilCari.innerHTML = `Ditemukan <b>${jumlahBarisCocok}</b> tanggal yang mengandung “<b>${kata}</b>”`;
+    infoHasilCari.innerHTML = `Ditemukan <b>${jumlahBarisCocok}</b> angka result ${kata}`;
   } else {
     infoHasilCari.innerHTML = '';
   }

@@ -9,26 +9,21 @@ body{font-family:Arial;background:#111;color:#fff;padding:15px}
 table{width:100%;border-collapse:collapse;margin-top:15px;background:#222}
 th,td{border:1px solid #444;padding:8px;text-align:center;font-size:13px}
 th{background:#ffcc00;color:#000}
-pre{background:#000;color:#0f0;padding:10px;overflow:auto;font-size:11px;max-height:300px}
+pre{background:#000;color:#0f0;padding:10px;overflow:auto;font-size:11px;max-height:300px;white-space:pre-wrap}
 button{background:#ffcc00;border:0;padding:10px 20px;font-weight:bold;border-radius:8px}
 </style>
 </head>
 <body>
 <h2>🔥 TEST SEDOT DATA (MENTAH)</h2>
-<p>Ini folder terpisah, web macau utama aman.</p>
+<p>Folder terpisah, web macau utama aman.</p>
 <button onclick="loadData()">SEDOT SEKARANG</button>
 <p id="status">Belum disedot...</p>
-
 <h3>Data Mentah (JSON):</h3>
 <pre id="mentah">Belum ada data...</pre>
-
 <h3>Data Jadi Tabel:</h3>
 <div id="tabel"></div>
-
 <script>
-// GANTI INI SAMA LINK API ABANG YANG /exec
-var API_URL = "LINK_API_ABANG_DISINI";
-
+var API_URL = "https://script.google.com/macros/s/AKfycbzPXooZknLI43LEmDOWsna2jjrQbmFq7cGqP2BuUxysC0QWCc8cjB2pNmHshDbfGd_s/exec";
 function loadData(){
   document.getElementById("status").innerText = "Lagi nyedot...";
   fetch(API_URL)
@@ -36,7 +31,6 @@ function loadData(){
     .then(j => {
       document.getElementById("status").innerText = "Berhasil! Total: " + j.total;
       document.getElementById("mentah").innerText = JSON.stringify(j, null, 2);
-      
       var html = "<table><tr><th>Tanggal</th><th>00:00</th><th>13:00</th><th>16:00</th><th>19:00</th><th>22:00</th><th>23:00</th></tr>";
       j.data.forEach(d => {
         html += "<tr><td>"+d.tanggal+"</td><td>"+d.jam_00+"</td><td>"+d.jam_13+"</td><td>"+d.jam_16+"</td><td>"+d.jam_19+"</td><td>"+d.jam_22+"</td><td>"+d.jam_23+"</td></tr>";

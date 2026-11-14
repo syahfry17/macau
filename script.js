@@ -13,10 +13,11 @@ function filterTabel() {
   const q = searchInput.value.trim().toLocaleLowerCase('id');
   btnClearSearch.hidden = !q;
   infoHasilCari.hidden = !q;
-  // Biar pil hijau nya muncul / hilang cantik
   infoHasilCari.classList.toggle('tampil', Boolean(q));
   btnClearSearch.classList.toggle('tampil', Boolean(q));
-  let jumlahBarisCocok = 0;
+
+  let jumlahAngkaResult = 0; // <-- INI YANG DIHITUNG, PER DATA RESULT, BUKAN PER TANGGAL
+
   for (const tr of tbody.querySelectorAll('tr')) {
     if (tr.classList.contains('tahun')) {
       tr.hidden = Boolean(q);
@@ -25,15 +26,28 @@ function filterTabel() {
     }
     const cells = [...tr.querySelectorAll('td')];
     if (cells.length !== 7) continue;
+
     let cocok = false;
+
     cells.forEach((td, index) => {
       const value = td.textContent;
       const lower = value.toLocaleLowerCase('id');
-      // Buat ulang teks agar highlight lama bersih tanpa mengubah data.
+      // Bersihkan highlight lama
       td.replaceChildren(document.createTextNode(value));
+
       if (!q || !lower.includes(q)) return;
+
+      // Tanggal ikut bikin baris muncul, tapi TIDAK DIHITUNG
+      if (index === 0) {
+        cocok = true;
+        return;
+      }
+
+      // Ini data result: hitung per data result
       cocok = true;
-      if (index === 0) return; // tanggal ikut dicari, tapi tidak disorot
+      jumlahAngkaResult++;
+
+      // Highlight kuningnya
       const fragment = document.createDocumentFragment();
       let cursor = 0, pos;
       while ((pos = lower.indexOf(q, cursor)) !== -1) {
@@ -47,12 +61,13 @@ function filterTabel() {
       fragment.appendChild(document.createTextNode(value.slice(cursor)));
       td.replaceChildren(fragment);
     });
+
     tr.style.display = !q || cocok ? '' : 'none';
-    if (q && cocok) jumlahBarisCocok++;
   }
+
   if (q) {
     const kata = searchInput.value.trim();
-    infoHasilCari.innerHTML = `Ditemukan <b>${jumlahBarisCocok}</b> angka result ${kata}`;
+    infoHasilCari.innerHTML = `Ditemukan <b>${jumlahAngkaResult}</b> angka result ${kata}`;
   } else {
     infoHasilCari.innerHTML = '';
   }

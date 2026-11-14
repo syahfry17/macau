@@ -37,7 +37,7 @@ th {
   padding: 15px 2px;
   text-align: center;
   position: sticky;
-  top: 0;
+  top: 58px;
 }
 
 td {
@@ -133,12 +133,91 @@ footer .garis {
   margin: 8px auto 8px auto;
 }
 
-/* Pencarian - tidak mengubah ukuran tabel */
-.pencarian-wrap { padding: 0 10px 12px; }
-.pencarian-box { display: flex; align-items: center; border: 1px solid #d3d9d7; background: #fff; border-radius: 8px; overflow: hidden; }
-.pencarian-box:focus-within { border-color: #009879; box-shadow: 0 0 0 2px #00987922; }
-#searchInput { width: 100%; min-width: 0; padding: 12px; border: 0; outline: 0; font-size: 15px; background: transparent; }
-#btnClearSearch { flex: 0 0 42px; border: 0; background: transparent; color: #666; font-size: 25px; cursor: pointer; }
-#btnClearSearch[hidden], .hasil-cari[hidden] { display: none; }
-.hasil-cari { margin: 9px 2px 0; font-size: 13px; color: #00836a; font-weight: 600; }
-mark.highlight-angka { background: #ffe16a; color: #000; font-weight: 800; border-radius: 2px; padding: 0; }
+/* ===== PENCARIAN - VERSI CANTIK ===== */
+.pencarian-wrap {
+  padding: 0 10px 10px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #f5f5f5;
+  padding-top: 10px;
+}
+.pencarian-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 2px solid #009879;
+  border-radius: 99px;
+  padding: 6px 8px 6px 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+}
+.pencarian-box::before {
+  content: "🔍";
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.pencarian-box:focus-within {
+  border-color: #00c9a7;
+  box-shadow: 0 0 0 3px rgba(0,201,167,0.18), 0 4px 14px rgba(0,0,0,0.10);
+}
+#searchInput {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 8px 0;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  background: transparent;
+}
+#searchInput::placeholder {
+  font-weight: 500;
+  color: #9ca3af;
+}
+#btnClearSearch {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+}
+#btnClearSearch.tampil {
+  display: block;
+}
+#btnClearSearch[hidden], .hasil-cari[hidden] {
+  display: none;
+}
+.hasil-cari {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #00695c;
+  background: #ccfbf1;
+  margin: 8px 2px 0;
+  padding: 8px 12px;
+  border-radius: 99px;
+  display: none;
+}
+.hasil-cari.tampil {
+  display: block;
+}
+.hasil-cari b {
+  font-weight: 900;
+}
+mark.highlight-angka {
+  background: #fde047;
+  color: #000;
+  font-weight: 900;
+  border-radius: 4px;
+  padding: 0 3px;
+}

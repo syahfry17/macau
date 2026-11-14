@@ -132,3 +132,13 @@ footer .garis {
   border-radius: 10px;
   margin: 8px auto 8px auto;
 }
+
+/* Pencarian - tidak mengubah ukuran tabel */
+.pencarian-wrap { padding: 0 10px 12px; }
+.pencarian-box { display: flex; align-items: center; border: 1px solid #d3d9d7; background: #fff; border-radius: 8px; overflow: hidden; }
+.pencarian-box:focus-within { border-color: #009879; box-shadow: 0 0 0 2px #00987922; }
+#searchInput { width: 100%; min-width: 0; padding: 12px; border: 0; outline: 0; font-size: 15px; background: transparent; }
+#btnClearSearch { flex: 0 0 42px; border: 0; background: transparent; color: #666; font-size: 25px; cursor: pointer; }
+#btnClearSearch[hidden], .hasil-cari[hidden] { display: none; }
+.hasil-cari { margin: 9px 2px 0; font-size: 13px; color: #00836a; font-weight: 600; }
+mark.highlight-angka { background: #ffe16a; color: #000; font-weight: 800; border-radius: 2px; padding: 0; }

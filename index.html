@@ -9,7 +9,7 @@
 <body>
 <h2>DATA MACAU</h2>
 <p class="info">2025 - 2026</p>
-<div id="jamRealTime" class="jam-macau">Minggu - 15 Nov 2026 - 10:24:00</div>
+<div id="jamRealTime" class="jam-macau"></div>
 <div class="pencarian-wrap">
   <div class="pencarian-box">
     <input id="searchInput" type="text" inputmode="search" autocomplete="off" placeholder="Cari angka Result atau Tanggal" aria-label="Cari angka result atau tanggal">
@@ -41,5 +41,26 @@
 </footer>
   
 <script src="script.js?v=2" defer></script>
+<script>
+// JAM REAL TIME - MACAU - LANGSUNG DI HTML BIAR JALAN
+function updateJamMacau() {
+  const el = document.getElementById('jamRealTime');
+  if (!el) return;
+  const now = new Date();
+  const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const namaHari = hari[now.getDay()];
+  const tgl = String(now.getDate()).padStart(2, '0');
+  const namaBulan = bulan[now.getMonth()];
+  const tahun = now.getFullYear();
+  const jam = String(now.getHours()).padStart(2, '0');
+  const menit = String(now.getMinutes()).padStart(2, '0');
+  const detik = String(now.getSeconds()).padStart(2, '0');
+  el.textContent = `${namaHari} - ${tgl} ${namaBulan} ${tahun} - ${jam}:${menit}:${detik}`;
+}
+updateJamMacau();
+setInterval(updateJamMacau, 1000);
+</script>
+</body>
 </body>
 </html>

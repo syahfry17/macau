@@ -221,3 +221,12 @@ mark.highlight-angka {
   border-radius: 4px;
   padding: 0 3px;
 }
+/* JAM REAL TIME - MACAU */
+.jam-macau {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  margin: 6px 0 10px 0;
+  letter-spacing: 0.3px;
+}

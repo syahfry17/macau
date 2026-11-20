@@ -94,30 +94,54 @@ function parseCSV(csv) {
   return rows;
 }
 
+function buatBarisTahun(teksTahun) {
+  const tr = document.createElement('tr');
+  tr.className = 'tahun';
+  const td = document.createElement('td');
+  td.colSpan = 7;
+  td.textContent = teksTahun;
+  tr.appendChild(td);
+  return tr;
+}
+
 function tampilkanData(rows) {
   // Spreadsheet asli: baris 1 judul, baris 2 sumber, baris 3 header,
   // baris 4 dst data; kolom A = tanggal, B-G = 6 jam.
   const data = rows.slice(3).filter(r => r[0] && r[0].trim());
   tbody.replaceChildren();
   let jumlah = 0;
+  let tahunAktif = new Date().getFullYear(); // Otomatis mulai dari tahun berjalan (2026)
+  let tanggalSebelumnya = '';
+
   for (const r of data) {
     const tanggal = String(r[0] || '').trim();
     if (!tanggal) continue;
-    const tr = document.createElement('tr');
+
+    // Jika di sheet sudah ada tulisan TAHUN 20xx manual
     if (/TAHUN\s+20\d{2}/i.test(tanggal)) {
-      tr.className = 'tahun';
-      const td = document.createElement('td'); td.colSpan = 7;
-      td.textContent = tanggal; tr.appendChild(td);
-    } else {
-      for (let c = 0; c < 7; c++) {
-        const td = document.createElement('td');
-        const value = String(r[c] ?? '').trim();
-        td.textContent = value || (c ? 'xxxx' : '');
-        tr.appendChild(td);
-      }
-      jumlah++;
+      const match = tanggal.match(/20\d{2}/);
+      if (match) tahunAktif = parseInt(match[0], 10);
+      tbody.appendChild(buatBarisTahun(`✦ ${tanggal.toUpperCase()} ✦`));
+      tanggalSebelumnya = '';
+      continue;
+    }
+
+    // Deteksi otomatis pergantian tahun (Jan ke Des)
+    if (tanggalSebelumnya && /Jan/i.test(tanggalSebelumnya) && /Des/i.test(tanggal)) {
+      tahunAktif--;
+      tbody.appendChild(buatBarisTahun(`✦ TAHUN ${tahunAktif} ✦`));
+    }
+
+    const tr = document.createElement('tr');
+    for (let c = 0; c < 7; c++) {
+      const td = document.createElement('td');
+      const value = String(r[c] ?? '').trim();
+      td.textContent = value || (c ? 'xxxx' : '');
+      tr.appendChild(td);
     }
     tbody.appendChild(tr);
+    tanggalSebelumnya = tanggal;
+    jumlah++;
   }
   if (!jumlah) throw new Error('Tidak ada data pada Sheet1. Periksa susunan baris dan link CSV.');
   statusData.textContent = '';
@@ -144,6 +168,7 @@ async function muatData() {
   }
 }
 muatData();
+
 // JAM REAL TIME - MACAU
 function updateJamMacau() {
   const el = document.getElementById('jamRealTime');

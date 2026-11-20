@@ -38,6 +38,7 @@ th {
   text-align: center;
   position: sticky;
   top: 58px;
+  z-index: 10;
 }
 
 td {
@@ -92,15 +93,18 @@ td:focus {
   transform: scale(0.95);
 }
 
-/* PEMBATAS TAHUN */
+/* PEMBATAS TAHUN (HIJAU TOSKA) */
 tr.tahun td {
-  background: #111 !important;
-  color: #fff !important;
+  background: linear-gradient(90deg, #00796b 0%, #009879 50%, #00796b 100%) !important;
+  color: #ffffff !important;
   font-weight: 800;
+  font-size: 14px;
   text-align: center;
-  letter-spacing: 2px;
-  padding: 10px 0;
-  border-bottom: none;
+  letter-spacing: 2.5px;
+  padding: 9px 0;
+  border-top: 2px solid #00695c;
+  border-bottom: 2px solid #00695c;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 /* FOOTER COPYRIGHT - UDAH RAPET */
